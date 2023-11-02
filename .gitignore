@@ -1,0 +1,13 @@
+
+node_modules/
+**/.vuepress/.cache/
+**/.vuepress/.temp/
+**/.vuepress/dist/
+.idea
+.vscode/
+packages/*/lib/
+traversal-folder-replace-string.py
+format-markdown.py
+package-lock.json
+lintmd-config.json
+pnpm-lock.yaml
