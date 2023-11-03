@@ -9,7 +9,12 @@ export default hopeTheme({
     url: "https://github.com/Thechc/Augsix",
   },
   favicon: "/favicon.ico",
-  iconAssets: "iconfont",
+  iconAssets:  "iconfont",
+  // iconAssets: [
+  //   "https://kit.fontawesome.com/5cfaa86361.js",
+  //   "iconfont",
+  //   "fontawesome",
+  // ],
   logo: "/logo.jpg",
   repo: "https://github.com/Thechc/Augsix",
   docsDir: "docs",
