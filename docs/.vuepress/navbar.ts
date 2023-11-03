@@ -9,7 +9,7 @@ export default navbar([
   {
     text: "文章",
     icon: "discover",
-    link:"/java"
+    link:"/java/concurrent/jmm.html"
   },
 
 ]);

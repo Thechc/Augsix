@@ -19,6 +19,7 @@ export default hopeTheme({
   sidebar,
   footer: "默认页脚",
   displayFooter: true,
+  breadcrumb: false,
   encrypt: {
     config: {
       "/demo/encrypt.html": ["1234"],
@@ -42,7 +43,7 @@ export default hopeTheme({
     mdEnhance: {
       align: true,
       attrs: true,
-      card: true,
+      // card: true,
       // install chart.js before enabling it
       chart: true,
       codetabs: true,
