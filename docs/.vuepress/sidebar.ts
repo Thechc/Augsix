@@ -11,7 +11,7 @@ export default sidebar({
         {
           text: "并发编程",
           prefix: "concurrent/",
-          icon: "lock",
+          icon: "concurrent",
           children: [
             "jmm",
             {
