@@ -16,12 +16,12 @@ features:
   - title: Java 核心技术
     icon: java
     details: 探索 Java 底层原理
-    link: /spring/spring.html
+    link: /java/concurrent/jmm.md
 
-  - title: Spring
-    icon: leaf
+  - title: 开发框架
+    icon: frame
     details: 岗位：Spring 工程师
-    link: /spring/spring.html
+    link: /framework/spring.html
 
   - title: SpringCloud
     icon: weifuwu

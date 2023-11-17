@@ -11,37 +11,57 @@ export default sidebar({
         {
           text: "并发编程",
           prefix: "concurrent/",
+          collapsible: true,
           icon: "concurrent",
           children: [
             "jmm",
             {
-              text: "juc",
-              icon: "asynchronous",
+              text: "JUC",
+              icon: "aqs",
               collapsible: true,
-              prefix: "juc/",
+              prefix: "JUC/",
               children: [
                 "AQS"
               ],
             },
           ],
+        },
+        {
+          text: "JVM",
+          prefix: "JVM/",
+          icon: "jvm",
+          collapsible: true,
+          children: [
+            "jvm-memory-structure",
+            "jvm-garbage-collection",
+            "jvm-class-loud",
+            "jvm-memory-modle"
+          ],
         }
       ]
     },
-    // {
-    //   text: "DevOps",
-    //   icon: "set",
-    //   prefix: "DevOps/",
-    //   collapsible: true,
-    //   children: [
-    //     {
-    //       text: "Arthas",
-    //       prefix: "Arthas/",
-    //       icon: "16gl-A",
-    //       children: [
-    //         "Arthas-intro",
-    //       ],
-    //     }
-    //   ]
-    // },
+    {
+      text: "开发框架",
+      icon: "frame",
+      prefix: "framework/",
+      collapsible: true,
+      children: [
+        {
+          text: "spring",
+          prefix: "spring/",
+          collapsible: true,
+          icon: "leaf",
+          children: [
+            "source-code-1-spring-intro.md",
+            "source-code-2-ioc-start-intro",
+            "source-code-3-ioc-instantiate",
+            "source-code-4-ioc-initialization-beanfactory",
+            "source-code-5-register-bean-post-processors",
+            "source-code-6-finishBeanFactoryInitialization",
+            "source-code-7-singleton-bean-create"
+          ],
+        },
+      ]
+    },
   ],
 });
