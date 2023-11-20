@@ -8,11 +8,9 @@ tag:
 star: true
 ---
 
-<a name="L7uCa"></a>
-# 第二篇：IOC容器启动概览
-<a name="atwwh"></a>
+
 ## 一、前言
-一般我们使用`Spring`的时候，一般都是使用`AnnotationConfigApplicationContext`注解方式或`ClassPathXmlApplicationContext`来创建`IOC`容器的（本次主要以注解的方式来分析`Spring`源码）。
+使用`Spring`一般都是使用`AnnotationConfigApplicationContext`注解方式或`ClassPathXmlApplicationContext`来创建`IOC`容器的（本次主要以注解的方式来分析`Spring`源码）。
 ```java
 // 注解方式
 AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -20,18 +18,17 @@ AnnotationConfigApplicationContext applicationContext = new AnnotationConfigAppl
 ClassPathXmlApplicationContext xmlApplicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 ```
-<a name="YDdzp"></a>
 ## 二、IOC启动过程
 ```java
 // AnnotationConfigApplicationContext.class
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
     
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
-         // 调用自身无参构造，主要注册后置处理器
+    // 调用自身无参构造，主要注册后置处理器
 		this();
-         // 扫描注册配置类bean
+    // 扫描注册配置类bean
 		register(componentClasses);
-         // 刷新容器
+    // 刷新容器
 		refresh();
 	}    
 }
@@ -41,29 +38,27 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 1. 注册常用注解后置处理器
 2. 注册配置类bean
 3. 刷新容器
-<a name="z63Hy"></a>
 ## 三、注册后置处理器
 ```java
 // AnnotationConfigApplicationContext.class
 public AnnotationConfigApplicationContext() {
-     // 记录特定阶段或动作的指标 无需注意
+    // 记录特定阶段或动作的指标 无需注意
     StartupStep createAnnotatedBeanDefReader = this.getApplicationStartup().start("spring.context.annotated-bean-reader.create");
-     // 注册Spring内部一些处理器的BeanDefinition注册，主要是spring注解的后置处理器
-     // 比如@Configuration、@Autowired、 @Required、事件监听器等后置处理器
+    // 注册Spring内部一些处理器的BeanDefinition注册，主要是spring注解的后置处理器
+    // 比如@Configuration、@Autowired、 @Required、事件监听器等后置处理器
     this.reader = new AnnotatedBeanDefinitionReader(this);
     createAnnotatedBeanDefReader.end();
-     // 创建BeanDefinition扫描器，用来扫描@Component并转换成BeanDefinition
+    // 创建BeanDefinition扫描器，用来扫描@Component并转换成BeanDefinition
     this.scanner = new ClassPathBeanDefinitionScanner(this);
     
-     // AnnotatedBeanDefinitionReader是基于配置类的注解注册BeanDefinition
-     // 例如：new AnnotationConfigApplicationContext(MyConfig.class);
+    // AnnotatedBeanDefinitionReader是基于配置类的注解注册BeanDefinition
+    // 例如：new AnnotationConfigApplicationContext(MyConfig.class);
     
-     // ClassPathBeanDefinitionScanner是基于包路径扫描BeanDefinition
-     // 例如：new AnnotationConfigApplicationContext("xxx.xxx.xxx");
+    // ClassPathBeanDefinitionScanner是基于包路径扫描BeanDefinition
+    // 例如：new AnnotationConfigApplicationContext("xxx.xxx.xxx");
         
 }
 ```
-<a name="dDpmj"></a>
 ### AnnotatedBeanDefinitionReader
 `AnnotatedBeanDefinitionReader`的作用是注册`Spring`配置注解后置处理器,将这些后置处理器注册成`BeanDefinition`
 ```java
@@ -148,11 +143,12 @@ public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 - `CommonAnnotationBeanPostProcessor`处理`@PostConstruct`、`@PreDestroy`、`@Resource`、`@WebServiceRef`、`@EJB`
 - `PersistenceAnnotationBeanPostProcessor`处理`@PersistenceUnit`、`@PersistenceContext`
 - `EventListenerMethodProcessor`和`@DefaultEventListenerFactory`处理`@EventListener`
-<a name="xumpf"></a>
 ### ClassPathBeanDefinitionScanner
+
 `ClassPathBeanDefinitionScanner`用于扫描指定包下带`@component`注解的类，包括`@Repository`、`@Service`、`@Controller`。将这些类注册成`BeanDefinition`
-<a name="t9lFl"></a>
+
 ## 四、注册配置类bean
+
 ```java
 // AnnotationConfigApplicationContext.class
 public void  register(Class<?>... componentClasses) {
@@ -164,10 +160,15 @@ public void  register(Class<?>... componentClasses) {
     registerComponentClass.end();
 }
 ```
+
 这一步还是将自己定义配置类注册成`BeanDefinition`,在后面由`ConfigurationClassPostProcessor`来处理
-<a name="X0CYX"></a>
+
 ## 五、刷新容器
-![第二篇refresh流程%202[1].png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1676864181794-f567f2dd-4a32-4b12-9581-98662eb7aae8.png#averageHue=%2399be84&clientId=u90f307a2-f8d5-4&from=ui&id=u5a5c3141&originHeight=711&originWidth=798&originalType=binary&ratio=1&rotation=0&showTitle=false&size=430258&status=done&style=shadow&taskId=ub4b0541b-d7ca-48e6-92b6-678932c2a7b&title=)<br />在做完容器的前期必须的条件加载之后就开始初始化容器了，也就是调用容器的刷新方法。
+
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E4%BA%8C%E7%AF%87refresh%E6%B5%81%E7%A8%8B%202.png)
+
+在做完容器的前期必须的条件加载之后就开始初始化容器了，也就是调用容器的刷新方法。
+
 ```java
 public void refresh() throws BeansException, IllegalStateException {
     synchronized (this.startupShutdownMonitor) {

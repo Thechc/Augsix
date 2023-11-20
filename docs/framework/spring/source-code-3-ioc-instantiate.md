@@ -7,16 +7,22 @@ tag:
   - spring
 star: true
 ---
+
 ## 一、前言
+
 在容器正式刷新前，需要对容器进行一些前期处理，我理解为容器的实例化阶段。
-![第三篇refresh流程-容器实例化.drawio.png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1676864469359-fd31166a-a4b6-427b-9366-d1150e5f49f4.png#averageHue=%23f2f2f2&clientId=u2df0a646-c92e-4&from=ui&height=279&id=u10f64af6&originHeight=279&originWidth=341&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63146&status=done&style=none&taskId=u1ecffbec-93aa-4c73-8542-5fcea69bb3a&title=&width=341)
+
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E4%B8%89%E7%AF%87refresh%E6%B5%81%E7%A8%8B-%E5%AE%B9%E5%99%A8%E5%AE%9E%E4%BE%8B%E5%8C%96.drawio.png)
+
 ## 二、容器创建前准备-prepareRefresh
+
 Spring在初始化Spring容器前会先初始化一些配置及属性。主要做了一下4个事情：
 
 1. 设置容器标志位，表示当前容器处于激活状态
 2. 回调初始化initPropertySources方法，初始化PropertySource，用于子类实现并扩充功能
 3. 校验环境中必须的参数
 4. 初始化earlyApplicationListeners与earlyApplicationEvents
+
 ```java
 // AbstractApplicationContext#prepareRefresh
 protected void prepareRefresh() {
@@ -60,7 +66,9 @@ protected void prepareRefresh() {
     this.earlyApplicationEvents = new LinkedHashSet<>();
 }
 ```
+
 ### 设置标志位
+
 ```java
 // 将容器关闭标志位设置为关闭
 this.closed.set(false);
@@ -90,8 +98,11 @@ protected void assertBeanFactoryActive() {
     }
 }
 ```
+
 ### 初始化PropertySource
+
 `initPropertySources`是留给子类实现扩展的方法，在web类型的`ApplicationContext`中都会去重写此方法。在初始化前向容器中内注入`servletContextInitParams`和`servletConfigInitParams`相关的属性。另外与`getEnvironment().validateRequiredProperties()`合用可扩展在容器启动时校验必须参数
+
 ```java
 // AbstractRefreshableWebApplicationContext.class、GenericWebApplicationContext.class
 @Override
@@ -117,15 +128,21 @@ public static void initServletPropertySources(MutablePropertySources sources,
     }
 }
 ```
+
 ### 校验必须参数
 
 `getEnvironment().validateRequiredProperties()`用来校验当前容器是否有指定的参数
-[案例]: [https://blog.csdn.net/luzhensmart/article/details/118187033](https://blog.csdn.net/luzhensmart/article/details/118187033)
+
+案例: [https://blog.csdn.net/luzhensmart/article/details/118187033](https://blog.csdn.net/luzhensmart/article/details/118187033)
 
 ### 初始化earlyApplicationListeners与earlyApplicationEvents
+
 `earlyApplicationListeners`的本质还是`ApplicationListener`，那它名称中的early是什么意思呢？
+
 `Spring`单例`Bean`的实例化是在`Refresh`阶段实例化的，那么用户自定义的一些`ApplicationListener`组件自然也是在这个阶段才初始化，但是`Spring`容器启动过程中，在`Refresh`完成之前还有很多事件：如`Spring`上下文环境准备等事件，这些事件又是`Spring`容器启动必须要监听的。所以`Spring`定义了一个`earlyApplicationListeners`集合，这个集合中的`Listener`在`factories`文件中定义好，在容器`Refresh`之前预先实例化好，然后就可以监听Spring容器启动过程中的所有事件。
+
 ## 三、获取容器-obtainFreshBeanFactory
+
 做完前期准备后`Spring`就正式开始实例化容器了。容器会调用`refreshBeanFactory`来创建容器对象。但是这个方法有不同的容器类型自己去实现。
 ```java
 // AbstractApplicationContext.class
@@ -178,6 +195,7 @@ protected final void refreshBeanFactory() throws BeansException {
 		}
 	}
 ```
+
 其中`loadBeanDefinitions()`是从xml解析配置文件中的`Bean`对象并注册成`BeanDefinition`。
 > 所以Generic类型容器把Bean对象转换为BeanDefinition的时机是在refresh方法执行之前通过ClassPathBeanDefinitionScanner扫描指定包下的相关注解注册BeanDefinition。
 > 而Refreshable类型容器是在refresh方式执行中时容器通过重写refreshBeanFactory方法来解析xml配置文件中的Bean，并注册成BeanDefinition。

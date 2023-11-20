@@ -7,15 +7,21 @@ tag:
   - spring
 star: true
 ---
+
 ## 一、前言
+
 在学习Bean初始化的时候有这样一段代码：
-![第七篇单例Bean创建入口[1].png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1680248648462-7076cb0a-2bfc-46a8-b5d6-a8e5f1de92f7.png#averageHue=%232d2d2c&clientId=udc07114a-7c81-4&from=ui&id=u7697eed7&originHeight=477&originWidth=961&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54958&status=done&style=none&taskId=ub6664cdf-cde0-4759-9c69-c8793b9c0a5&title=)
+
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E4%B8%83%E7%AF%87%E5%8D%95%E4%BE%8BBean%E5%88%9B%E5%BB%BA%E5%85%A5%E5%8F%A3.png)
+
 这部分展示单例Bean创建大致由三部分组成：
 
 1. createBean
 2. getSingleton
 3. getObjectForBeanInstance
+
 ## 二、createBean创建Bean对象工厂
+
 ```java
 
 @Override
@@ -91,7 +97,9 @@ protected Object createBean(String beanName, RootBeanDefinition mbd, @Nullable O
     }
 }
 ```
+
 ### doCreateBean
+
 ```java
 protected Object doCreateBean(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
 			throws BeanCreationException {
@@ -217,7 +225,9 @@ protected Object doCreateBean(String beanName, RootBeanDefinition mbd, @Nullable
 		return exposedObject;
 	}
 ```
+
 ### populateBean
+
 初始化Bean的属性
 ```java
 protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
@@ -306,7 +316,9 @@ protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable B
     }
 }
 ```
+
 ### initializeBean
+
 这一步初始化Bean的一些初始化方法及BeanPostProcessor后置处理器
 ```java
 protected Object initializeBean(String beanName, Object bean, @Nullable RootBeanDefinition mbd) {
@@ -340,7 +352,9 @@ protected Object initializeBean(String beanName, Object bean, @Nullable RootBean
     return wrappedBean;
 }
 ```
+
 ## 三、getSingleton将对象放入缓存
+
 ```java
 public Object getSingleton(String beanName, ObjectFactory<?> singletonFactory) {
     Assert.notNull(beanName, "Bean name must not be null");
@@ -401,7 +415,9 @@ public Object getSingleton(String beanName, ObjectFactory<?> singletonFactory) {
     }
 }
 ```
+
 ### addSingleton
+
 ```java
 protected void addSingleton(String beanName, Object singletonObject) {
     synchronized (this.singletonObjects) {
@@ -414,4 +430,4 @@ protected void addSingleton(String beanName, Object singletonObject) {
 ```
 将对象放到一级缓存中，并将二级、三级缓存中Bean对象删除。
 
-![第八篇Bean创建过程.drawio.png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1680763278565-9d4c9498-4e0f-45b2-828e-7cc233e40ec3.png#averageHue=%23fcfcfc&clientId=ubaac2c78-3504-4&from=ui&id=u333cd9a2&originHeight=1092&originWidth=777&originalType=binary&ratio=1&rotation=0&showTitle=false&size=396434&status=done&style=none&taskId=ud8cb256b-91d1-4eb4-8452-ed2e1665842&title=)
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E5%85%AB%E7%AF%87Bean%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B.drawio.png)

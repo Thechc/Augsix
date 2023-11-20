@@ -7,10 +7,15 @@ tag:
   - spring
 star: true
 ---
+
 ## 一、前言
+
 初始化完前面的BeanFactory的属性、监听器、事件多播器等等后，接下来就是最重要的一步，初始化用户自定义的Bean。
-![第六篇Bean初始化finishBeanFactoryInitialization[1].png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1680147217574-a11cf444-8b58-4287-866b-0dedaf8b5cb2.png#averageHue=%23dcd9d8&clientId=u8e746aff-d35f-4&from=ui&id=uaa168946&originHeight=631&originWidth=781&originalType=binary&ratio=1&rotation=0&showTitle=false&size=357555&status=done&style=none&taskId=ub4fc4839-1622-4c8a-af78-395a2c110cb&title=)
+
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E5%85%AD%E7%AF%87Bean%E5%88%9D%E5%A7%8B%E5%8C%96finishBeanFactoryInitialization.png)
+
 ## 二、finishBeanFactoryInitialization
+
 ```java
 // AbstractApplicationContext#finishBeanFactoryInitialization()
 protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
@@ -47,7 +52,9 @@ protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory b
     beanFactory.preInstantiateSingletons();
 }
 ```
+
 ## 三、preInstantiateSingletons
+
 ```java
 // DefaultListableBeanFactory.class
 @Override
@@ -116,7 +123,9 @@ public void preInstantiateSingletons() throws BeansException {
     }
 }
 ```
+
 ## 四、getBean
+
 ```java
 // AbstractBeanFactory
 public <T> T getBean(String name, @Nullable Class<T> requiredType, @Nullable Object... args)
@@ -300,6 +309,7 @@ protected <T> T doGetBean(
     return adaptBeanInstance(name, beanInstance, requiredType);
 }
 ```
+
 上面代码比较长，基本上步骤已经添加相应的注释，基本上可以分为三步：
 
 1. 从缓存中获取到 Bean，创建对应的 Bean；

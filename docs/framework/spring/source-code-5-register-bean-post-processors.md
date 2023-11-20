@@ -8,10 +8,15 @@ tag:
 star: true
 ---
 ## 一、前言
+
 前面已经将容器的`BeanFactory`需要相关内容初始化完成。接下去就可以初始化我们自己创建的`bean`实例了，但是在创建bean实例之前还有一些需要初始化的内容，比如`bean`的后置处理器`BeanPostProcessors`、国际化工具、事件派发器、监听器等。
-![第五篇bean后置处理器[1].png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1679554092262-49fd3385-3a57-45c6-9c8a-fbd589d25dc3.png#averageHue=%23e9e7e6&clientId=ud4a67968-337f-4&from=ui&id=ucb80826a&originHeight=631&originWidth=781&originalType=binary&ratio=1&rotation=0&showTitle=false&size=415017&status=done&style=none&taskId=u5f5eaa6b-97df-4650-a897-fa169cb19bb&title=)
+
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E4%BA%94%E7%AF%87bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8.png)
+
 ## 二、BeanPostProcessors后置处理器
+
 `BeanPostProcessors`后置处理器的初始化和`BeanFactoryPostProcessor`大差不差。
+
 ```java
 public static void registerBeanPostProcessors(
 			ConfigurableListableBeanFactory beanFactory, AbstractApplicationContext applicationContext) {
@@ -95,8 +100,10 @@ public static void registerBeanPostProcessors(
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(applicationContext));
 	}
 ```
+
 `BeanPostProcessors`的作用在于在Bean初始化前后调用,修改特定Bean默认的实例化，比如创建代理类，或者实现额外的注册策略。
 ```java
+
 public interface BeanPostProcessor {
 
     // 在bean初始化之前调用的方法
@@ -114,6 +121,7 @@ public interface BeanPostProcessor {
 }
 ```
 ## 三、initMessageSource国际化信息
+
 ```java
 protected void initMessageSource() {
     ConfigurableListableBeanFactory beanFactory = getBeanFactory();
@@ -144,7 +152,9 @@ protected void initMessageSource() {
     }
 }
 ```
+
 ## 四、initApplicationEventMulticaster
+
 ```java
 protected void initApplicationEventMulticaster() {
     ConfigurableListableBeanFactory beanFactory = getBeanFactory();
@@ -165,8 +175,11 @@ protected void initApplicationEventMulticaster() {
     }
 }
 ```
+
 ## 五、onRefresh扩展
+
 `onRefresh`是 模板方法，在容器刷新的时候可以自定义逻辑（子类自己去实现逻辑），如springBoot创建Tomcat，Jetty等WEB服务器
+
 ```java
 // StaticWebApplicationContext.class
 @Override
@@ -210,7 +223,9 @@ public static ThemeSource initThemeSource(ApplicationContext context) {
     }
 }
 ```
+
 ## 六、registerListeners注册监听器
+
 ```java
 	protected void registerListeners() {
 		// Register statically specified listeners first.

@@ -7,20 +7,21 @@ tag:
   - spring
 star: true
 ---
+
 ## 一、前言
+
 `IOC`容器实例化完成后就该开始初始化容器了，容器初始化分为两个阶段：
-
 1. BeanFactory初始化
-
 `BeanFactory`初始化指对容器进行一些环境的加载，配置填充。
-
 2. Bean初始化
-
 `Bean`初始化则是对`Bean`进行生成和管理，最终完成容器的初始化。
+
 这篇就讲讲`BeanFactory`初始化
 
-[![第四篇BeanFactory初始化.drawio[1].png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1677136100173-7e1527c2-d1b3-4167-bff0-1a0706b42aec.png#averageHue=%23dddbda&clientId=udcb3dda7-8e52-4&from=ui&id=u42b1b17d&originHeight=631&originWidth=781&originalType=binary&ratio=1&rotation=0&showTitle=false&size=379094&status=done&style=none&taskId=u4d219b42-54a7-43a2-bbbb-0ee8d43ec60&title=)](http://image.augsix.com/materials/spring/%E7%AC%AC%E5%9B%9B%E7%AF%87BeanFactory%E5%88%9D%E5%A7%8B%E5%8C%96.drawio.png)
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E5%9B%9B%E7%AF%87BeanFactory%E5%88%9D%E5%A7%8B%E5%8C%96.drawio.png)
+
 ## 二、BeanFactory初始化准备-prepareBeanFactory
+
 ```java
 // AbstractApplicationContext.class
 protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
@@ -85,6 +86,7 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		}
 	}
 ```
+
 首先要初始化BeanFactory前进行初始化准备。在prepareBeanFactory方法中为beanFactory创建类加载器、必要的Processor、上下文环境等。prepareBeanFactory方法流程如下：
 
 1. 初始化类加载器
@@ -96,7 +98,9 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 7. 初始化ApplicationListener的检测
 8. LoadTimeWeaver初始化
 9. 注册上下文环境相关的Bean
+
 ### 初始化Spring容器Aware后置处理器
+
 `Aware`后置处理器的作用是在特定的Bean实例化完成后通知实现了`Aware`接口的类进行特殊处理。注册的Aware后置处理器有：
 
 1. EnvironmentAware：spring上下文环境加载完后通知
@@ -109,6 +113,7 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 
 其中最常用的是`ApplicationContextAware`。
 比如:不同商家购物车的处理逻辑不同，创建获得不同的`购物车service`来处理，这时就可以在容器就绪之后将`service`放到一个`Map`通过`service类型`类获取，这样可以省略很多if判断代码。
+
 ```java
 // ShoppingCartFactory.class
 @Component
@@ -147,8 +152,11 @@ public class ShoppingCartFactory implements ApplicationContextAware {
 }
 
 ```
+
 ## 三、BeanFactory初始化扩展-postProcessBeanFactory
+
 `postProcessBeanFactory`是一个模板方法，由子类自行实现，实现自己的逻辑。例如web类型的容器会在重写并加入相关的后置处理器。
+
 ```java
 // GenericWebApplicationContext.class
 @Override
@@ -180,7 +188,9 @@ protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory b
     }
 }
 ```
+
 实际通过`PostProcessorRegistrationDelegate`处理后置处理器。
+
 ```java
 // PostProcessorRegistrationDelegate.class
 public static void invokeBeanFactoryPostProcessors(
@@ -397,8 +407,12 @@ public static void invokeBeanFactoryPostProcessors(
 		beanFactory.clearMetadataCache();
 	}
 ```
+
 ### BeanDefinition后置处理器-BeanDefinitionRegistryPostProcessors
+
 为什么需要先处理`BeanDefinitionRegistryPostProcessors`类型的处理器呢？当前阶段`@Configuration`等配置类的注解都还是`BeanDefinition`，说明我们的配置还没有被启用。那怎么启用配置呢？
- 在`refresh`之前，容器通过`AnnotatedBeanDefinitionReader`向容器中注入了一个后置处理器-`ConfigurationClassPostProcessor`。
-![第四篇-ConfigurationClassPostProcessor[1].png](https://cdn.nlark.com/yuque/0/2023/png/8423455/1678181619366-f45bdbe4-5494-48de-bcf8-16f3f6e6fd2e.png#averageHue=%23333231&clientId=u738cb4b2-7f4b-4&from=ui&id=uf8fe9ceb&originHeight=402&originWidth=368&originalType=binary&ratio=1&rotation=0&showTitle=false&size=11578&status=done&style=none&taskId=u76fe5cda-c05a-4734-a89c-620d62874c0&title=)
+ 在`refresh`之前，容器通过`AnnotatedBeanDefinitionReader`向容器中注入了一个后置处理器`ConfigurationClassPostProcessor`。
+
+![](http://image.augsix.com/materials/spring/%E7%AC%AC%E5%9B%9B%E7%AF%87-ConfigurationClassPostProcessor.png)
+
 所以`ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry`方法会被先执行。之后配置类注解会被注册成`BeanDefinition`。所以只有先处理`BeanDefinitionRegistryPostProcessors`后续的操作才能进行。
