@@ -21,12 +21,12 @@ features:
   - title: 开发框架
     icon: frame
     details: 岗位：Spring 工程师
-    link: /framework/spring.html
+    link: /framework/spring/source-code-1-spring-intro.md
 
-  - title: SpringCloud
+  - title: 分布式
     icon: weifuwu
     details: SpringCloud
-    link: /spring/spring.html
+    link: /distributed-system/registration-center/eureka-source-code.md
 
   - title: MySQL
     icon: MySQL

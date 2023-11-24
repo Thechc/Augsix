@@ -7,10 +7,15 @@ tag:
   - spring
 star: true
 ---
+
 ## 前言
+
 阅读Spring源码前需要使用Gradle构建Spring项目，并且在阅读前我们先来了解一下Spring几个重要的核心类与接口。
+
 ## 一、BeanFactory体系
+
 ### 1.1、BeanFactory接口
+
 #### BeanFactory
 `BeanFactory`是`Spring`对容器最基本的规范与定义，它定义了获取`bean`对象的`getBean()`方法及一些`bean`对象的定义。
 

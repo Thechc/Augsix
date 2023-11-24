@@ -52,13 +52,37 @@ export default sidebar({
           collapsible: true,
           icon: "leaf",
           children: [
-            "source-code-1-spring-intro.md",
+            "source-code-1-spring-intro",
             "source-code-2-ioc-start-intro",
             "source-code-3-ioc-instantiate",
             "source-code-4-ioc-initialization-beanfactory",
             "source-code-5-register-bean-post-processors",
             "source-code-6-finishBeanFactoryInitialization",
             "source-code-7-singleton-bean-create"
+          ],
+        },
+      ]
+    },
+    {
+      text: "分布式",
+      icon: "weifuwu",
+      prefix: "distributed-system/",
+      collapsible: true,
+      children: [
+        {
+          text: "注册中心",
+          prefix: "registration-center/",
+          icon: "register",
+          children: [
+            "eureka-source-code",
+          ],
+        },
+        {
+          text: "API网关",
+          prefix: "gateway/",
+          icon: "register",
+          children: [
+            "eureka-source-code",
           ],
         },
       ]
