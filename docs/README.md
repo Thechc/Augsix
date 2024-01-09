@@ -23,7 +23,7 @@ features:
     details: 岗位：Spring 工程师
     link: /framework/spring/source-code-1-spring-intro.md
 
-  - title: 分布式
+  - title: 微服务
     icon: weifuwu
     details: SpringCloud
     link: /distributed-system/registration-center/eureka-source-code.md

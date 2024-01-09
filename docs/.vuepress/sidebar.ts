@@ -64,7 +64,7 @@ export default sidebar({
       ]
     },
     {
-      text: "分布式",
+      text: "微服务",
       icon: "weifuwu",
       prefix: "distributed-system/",
       collapsible: true,
@@ -77,14 +77,25 @@ export default sidebar({
             "eureka-source-code",
           ],
         },
-        {
-          text: "API网关",
-          prefix: "gateway/",
-          icon: "register",
-          children: [
-            "eureka-source-code",
-          ],
-        },
+      ]
+    },
+    {
+      text: "MySQL",
+      icon: "MySQL",
+      prefix: "MySQL/",
+      collapsible: true,
+      children: [
+          "innodb-locking",
+          "index-invalid"
+      ]
+    },
+    {
+      text: "Bug King",
+      icon: "bug",
+      prefix: "bug-king/",
+      collapsible: true,
+      children: [
+          "mysql-insert-batch-deadlock"
       ]
     },
   ],

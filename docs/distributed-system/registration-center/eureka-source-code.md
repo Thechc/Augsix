@@ -2,7 +2,7 @@
 title: Eureka 原理
 order: 3
 author: Thechc
-category: 分布式
+category: 微服务
 tag:
   - 微服务
 star: true
