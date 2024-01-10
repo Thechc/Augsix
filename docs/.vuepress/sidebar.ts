@@ -90,6 +90,15 @@ export default sidebar({
       ]
     },
     {
+      text: "设计模式",
+      icon: "laravel",
+      prefix: "design-patterns/",
+      collapsible: true,
+      children: [
+          "pattern-templete-factory"
+      ]
+    },
+    {
       text: "Bug King",
       icon: "bug",
       prefix: "bug-king/",
