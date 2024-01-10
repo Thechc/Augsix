@@ -1,5 +1,5 @@
 ---
-title: 模板模式优化多平台商品下载
+title: 模板模式优化多业务商品下载
 order: 1
 author: Thechc
 category: Pattern
