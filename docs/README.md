@@ -70,7 +70,7 @@ features:
 
   - title: DevOps
     icon: devops
-    details: 精通 Linux 命令 alias cd='rm -rfv'
+    details: 精通 Linux 命令 alias cd='rm -rf'
     link: /spring/spring.html 
 ---
 
