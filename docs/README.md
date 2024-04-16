@@ -31,7 +31,7 @@ features:
   - title: MySQL
     icon: MySQL
     details: 成为不一样的 CURD Boy
-    link: /spring/spring.html 
+    link: /MySQL/innodb-locking.md
 
   - title: redis
     icon: redis
