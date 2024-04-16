@@ -51,17 +51,17 @@ features:
   - title: 数据结构、算法
     icon: calculator
     details: 1 + 1 什么情况下等于 3 ？
-    link: /spring/spring.html 
+    link: /design-patterns/pattern-templete-factory.html
 
   - title: 设计模式
     icon: laravel
     details: if (true == true) return true
-    link: /spring/spring.html 
+    link: /design-patterns/pattern-templete-factory.html 
 
   - title: Bug King
     icon: bug
     details: 虫 -> 䖵 -> 蟲
-    link: /spring/spring.html 
+    link: /bug-king/mysql-insert-batch-deadlock.html 
 
   - title: 架构
     icon: software-architecture
