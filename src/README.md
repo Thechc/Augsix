@@ -2,7 +2,7 @@
 home: true
 icon: home
 title: home
-heroImage: /logo.jpg
+heroImage: /logo.png
 heroText: Augsix
 tagline: 学习 沉淀 
 

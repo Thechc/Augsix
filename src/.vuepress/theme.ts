@@ -13,7 +13,7 @@ export default hopeTheme({
 
   iconAssets: "//at.alicdn.com/t/c/font_4313103_v2vwi2o27fi.css",
 
-  logo: "/logo.jpg",
+  logo: "/logo.png",
 
   repo: "https://github.com/Thechc/Augsix",
 
