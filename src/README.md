@@ -8,7 +8,7 @@ tagline: 学习 沉淀
 
 actions:
   - text: 开始阅读 💡
-    link: /
+    link: /java/concurrent/jmm.md
     type: primary
     
   - text: 关于我
