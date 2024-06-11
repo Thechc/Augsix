@@ -104,7 +104,8 @@ export default sidebar({
       prefix: "bug-king/",
       collapsible: true,
       children: [
-          "mysql-insert-batch-deadlock"
+          "mysql-insert-batch-deadlock",
+          "webSocket-mataspace-oom"
       ]
     },
   ],

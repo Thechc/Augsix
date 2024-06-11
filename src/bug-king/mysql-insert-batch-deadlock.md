@@ -2,9 +2,11 @@
 title: MySQL-生产环境批量插入死锁
 order: 3
 author: Thechc
-category: mysql
+category: 
+  - mysql
 tag:
   - 死锁
+  - BUG
 star: true
 ---
 
