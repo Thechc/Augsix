@@ -47,9 +47,6 @@ star: true
 ![](https://image.augsix.com/materials/bug/metaspace-oom-dump.png) 
 
 `ExcelExportTaskWebSocket` 这个类是使用 `websocket` 用来做站内通知的，所以我推断是不是 `websocket` 未关闭导致的内存溢出。
-
-
-
 ``` java
 
 @Slf4j
