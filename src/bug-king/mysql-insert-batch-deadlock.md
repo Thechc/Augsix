@@ -35,7 +35,7 @@ star: true
 
 ## 死锁日志
 
-```ba
+```bash
 ------------------------
 LATEST DETECTED DEADLOCK
 ------------------------
