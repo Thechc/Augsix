@@ -4,7 +4,7 @@ import sidebar from "./sidebar.js";
 import { MR_HOPE_AVATAR } from "./logo.js";
 
 export default hopeTheme({
-  hostname: "https://augsix.com",
+  hostname: "https://thechc.github.io/Augsix/",
 
   author: {
     name: "Thechc",
