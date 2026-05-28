@@ -8,7 +8,9 @@ export default defineUserConfig({
   title: "AugSix",
   // description: "A blog demo for vuepress-theme-hope",
 
-  theme,
+  theme: theme({
+    hostname: "https://thechc.github.io/Augsix/",
+  }),
 
   // Enable it with pwa
   // shouldPrefetch: false,
