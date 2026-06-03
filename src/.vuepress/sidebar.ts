@@ -105,7 +105,8 @@ export default sidebar({
       collapsible: true,
       children: [
           "mysql-insert-batch-deadlock",
-          "webSocket-mataspace-oom"
+          "webSocket-mataspace-oom",
+          "captcha-caused-system-crash"
       ]
     },
   ],
